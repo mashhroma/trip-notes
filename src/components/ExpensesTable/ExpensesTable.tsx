@@ -27,6 +27,9 @@ const ExpensesTable = () => {
 	};
 
 	useEffect(() => {
+		console.log("__dirname", __dirname);
+		console.log("process.cwd()", process.cwd());
+
 		getExpenses();
 
 		fetch("/api/expensesType")

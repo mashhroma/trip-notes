@@ -5,7 +5,7 @@ export const headers = [
 	},
 	{
 		value: "description",
-		title: "Расшифровка",
+		title: "Категория",
 	},
 	{
 		value: "expenses_type",
@@ -18,10 +18,6 @@ export const headers = [
 	{
 		value: "country",
 		title: "Страна",
-	},
-	{
-		value: "region",
-		title: "Регион",
 	},
 	{
 		value: "delete",
