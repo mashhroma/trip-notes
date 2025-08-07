@@ -8,10 +8,6 @@ export const headers = [
 		title: "Категория",
 	},
 	{
-		value: "expenses_type",
-		title: "Вид расходов",
-	},
-	{
 		value: "rubble_sum",
 		title: "Сумма в руб.",
 	},
