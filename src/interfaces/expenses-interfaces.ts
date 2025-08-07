@@ -1,4 +1,5 @@
 export interface IExpense {
+	id: number;
 	date: string;
 	description: string;
 	expenses_type: number;

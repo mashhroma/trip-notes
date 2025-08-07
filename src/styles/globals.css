@@ -26,3 +26,12 @@ a {
 main {
 	margin: 20px;
 }
+
+header {
+	font-size: 30px;
+	font-weight: 600;
+	padding: 10px;
+	background-color: blueviolet;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}

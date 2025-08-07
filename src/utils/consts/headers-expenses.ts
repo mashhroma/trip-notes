@@ -23,4 +23,8 @@ export const headers = [
 		value: "region",
 		title: "Регион",
 	},
+	{
+		value: "delete",
+		title: "",
+	},
 ];

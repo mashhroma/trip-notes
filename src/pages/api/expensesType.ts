@@ -4,7 +4,7 @@ import data from "./expensesType.json";
 
 export default function handler(
 	req: NextApiRequest,
-	res: NextApiResponse<any>
+	res: NextApiResponse<string[]>
 ) {
 	res.status(200).json(data);
 }

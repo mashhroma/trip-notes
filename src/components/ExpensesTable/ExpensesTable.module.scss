@@ -15,7 +15,7 @@
 
 .row {
 	display: grid;
-	grid-template-columns: 100px auto 15% 70px 10% 20%;
+	grid-template-columns: 100px auto 15% 70px 10% 20% 20px;
 	padding: 4px;
 	transition: 0.3s;
 	border-radius: 8px;
@@ -31,16 +31,32 @@
 
 .cell {
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 0 4px;
 }
 
 .numberCell {
+	@extend .cell;
 	text-align: right;
 	font-style: italic;
 }
 
 .textCell {
-	padding: 0 4px;
+	@extend .cell;
 	text-align: left;
+}
+
+.textCellDelete {
+	@extend .cell;
+	text-align: center;
+	transition: 0.3s;
+	cursor: pointer;
+
+	&:hover {
+		color: #f70b3b;
+	}
 }
 
 .addButtonBlock {
@@ -65,10 +81,10 @@
 	font-size: 20px;
 
 	&:hover {
-		background: lighten($color: #2adb16, $amount: 15);
+		background: #76db6b;
 	}
 
 	&:active {
-		background: darken($color: #2adb16, $amount: 15);
+		background: #116008;
 	}
 }

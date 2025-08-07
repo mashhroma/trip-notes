@@ -1,4 +1,4 @@
-export function getValueByKey<T extends Object>(
+export function getValueByKey<T extends object>(
 	obj: T,
 	key: string | number
 ): string {
