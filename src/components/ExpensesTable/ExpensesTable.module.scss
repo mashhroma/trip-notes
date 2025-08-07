@@ -1,0 +1,74 @@
+.titleBlock {
+	font-size: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.table {
+	background-color: #fff;
+	color: black;
+	padding: 8px;
+	margin: 16px 0;
+	border-radius: 8px;
+	font-size: 12px;
+}
+
+.row {
+	display: grid;
+	grid-template-columns: 100px auto 15% 70px 10% 20%;
+	padding: 4px;
+	transition: 0.3s;
+	border-radius: 8px;
+
+	&:not(:last-child) {
+		border-bottom: solid 1px rgb(91, 91, 95);
+	}
+
+	&:hover {
+		background-color: rgb(213, 214, 248);
+	}
+}
+
+.cell {
+	text-align: center;
+}
+
+.numberCell {
+	text-align: right;
+	font-style: italic;
+}
+
+.textCell {
+	padding: 0 4px;
+	text-align: left;
+}
+
+.addButtonBlock {
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+}
+
+.addButton {
+	height: 44px;
+	font-weight: 500;
+	padding: 16px;
+	background-color: #2adb16;
+	color: #fff;
+	transition: 0.3s;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	border: none;
+	font-size: 20px;
+
+	&:hover {
+		background: lighten($color: #2adb16, $amount: 15);
+	}
+
+	&:active {
+		background: darken($color: #2adb16, $amount: 15);
+	}
+}

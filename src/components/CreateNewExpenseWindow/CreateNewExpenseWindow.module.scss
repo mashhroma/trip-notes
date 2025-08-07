@@ -1,0 +1,70 @@
+.overlay {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.modal {
+	width: 70%;
+	max-height: 70%;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 30px;
+	color: #53297d;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.inputBlock {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 8px;
+	font-size: 16px;
+
+	label {
+		width: 80px;
+	}
+
+	input,
+	select {
+		width: 240px;
+		height: 36px;
+		border-radius: 8px;
+		border: solid 1px #53297d;
+		outline: none;
+		padding: 0px 8px;
+		color: #53297d;
+		transition: 0.3s;
+
+		&:hover {
+			background-color: #f0e6fb;
+		}
+	}
+}
+
+.multiBlock {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	input {
+		width: 100%;
+	}
+
+	select {
+		width: 70px;
+	}
+}
+
+.multiInputBlock {
+	@extend .inputBlock;
+	width: 240px;
+}

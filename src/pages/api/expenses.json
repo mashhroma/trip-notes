@@ -1,0 +1,32 @@
+[
+	{
+		"date": "01.07.2025",
+		"description": "Мисс Клеопатра",
+		"expenses_type": 1,
+		"currency_sum": 2830,
+		"currency": "rub",
+		"rate": 1,
+		"country": "turkey",
+		"region": "Аланья"
+	},
+	{
+		"date": "01.07.2025",
+		"description": "Adam & Eve",
+		"expenses_type": 1,
+		"currency_sum": 60070,
+		"currency": "rub",
+		"rate": 1,
+		"country": "turkey",
+		"region": "Белек"
+	},
+	{
+		"date": "01.07.2025",
+		"description": "Castival Hotel",
+		"expenses_type": 1,
+		"currency_sum": 41183,
+		"currency": "rub",
+		"rate": 1,
+		"country": "turkey",
+		"region": "Сиде"
+	}
+]
