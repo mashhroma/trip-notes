@@ -27,6 +27,7 @@ export default async function handler(
 	} else if (req.method === "POST") {
 		try {
 			const {
+				id,
 				date,
 				description,
 				expenses_type,
@@ -36,12 +37,6 @@ export default async function handler(
 				country,
 				region,
 			} = req.body;
-
-			const id =
-				objectData.reduce(
-					(maxId: number, expense) => Math.max(maxId, expense.id),
-					0
-				) + 1;
 
 			const newData = {
 				id,
