@@ -1,15 +1,21 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import styles from "./CreateNewExpenseWindow.module.scss";
-import { currencies } from "@/utils/consts/currencies";
-import { countries } from "@/utils/consts/countries";
-import { getNewDate, getStringDate } from "@/utils/functions/getStringDate";
+import { currencies, currenciesOptions } from "@/utils/consts/currencies";
+import { countries, countriesOptions } from "@/utils/consts/countries";
 import { setValueFromLS } from "@/utils/functions/setValueFromLS";
 import expensesApi from "@/services/expenses";
 import { IExpense } from "@/interfaces/expenses-interfaces";
+import Dropdown from "../ui-kit/Dropdown";
+import { Option } from "@/interfaces/option-interfaces";
+import Input from "../ui-kit/Input";
+import Button from "../ui-kit/Button";
+import { getValueByKey } from "@/utils/functions/getValueByKey";
+import DayPicker from "../ui-kit/Pickers/DayPicker";
+import { SlClose } from "react-icons/sl";
 
 interface CreateNewExpenseWindowProps {
 	setIsOpenCreateNewExpense: (openCreateNewExpense: boolean) => void;
-	expensesTypes: string[];
+	expensesTypes: Option[];
 	getExpenses: () => void;
 	expenses: IExpense[];
 }
@@ -20,73 +26,47 @@ const CreateNewExpenseWindow = ({
 	getExpenses,
 	expenses,
 }: CreateNewExpenseWindowProps) => {
-	const today = getStringDate(new Date());
-	const [dateValue, setDateValue] = useState<string>(today);
-	const [date, setDate] = useState<string>(getNewDate(today));
-	const [description, setDescription] = useState<string>("");
-	const [expensesType, setExpensesType] = useState<number>(0);
-	const [currencySum, setCurrencySum] = useState<number>(0);
+	const [date, setDate] = useState<Date>(new Date());
+	const [description, setDescription] = useState<string>();
+	const [SelectedExpensesType, setSelectedExpensesType] = useState<Option>(
+		expensesTypes[0]
+	);
+	const [currencySum, setCurrencySum] = useState<number>();
 	const [currency, setCurrency] = useState<string>("rub");
-	const [rate, setRate] = useState<number>(1);
+	const [rate, setRate] = useState<number>();
 	const [country, setCountry] = useState<string>("russia");
-	const [region, setRegion] = useState<string>("");
+	const [region, setRegion] = useState<string>();
 
 	const blockRef = useRef<HTMLDivElement>(null);
 
 	useLayoutEffect(() => {
-		setValueFromLS("expensesType", setExpensesType);
+		setValueFromLS("expensesType", setSelectedExpensesType);
 		setValueFromLS("currency", setCurrency);
 		setValueFromLS("rate", setRate);
 		setValueFromLS("country", setCountry);
 		setValueFromLS("region", setRegion);
 	}, []);
 
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (
-				blockRef.current &&
-				!blockRef.current.contains(event.target as Node)
-			) {
-				setIsOpenCreateNewExpense(false);
-			}
-		};
-		document.addEventListener("mousedown", handleClickOutside);
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-		};
-	}, [blockRef, setIsOpenCreateNewExpense]);
-
-	useEffect(() => {
-		console.log(expensesType);
-	}, [expensesType]);
-
-	const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const newDate = getNewDate(e.target.value);
-		setDateValue(e.target.value);
-		setDate(newDate);
-	};
-
 	const handleDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setDescription(e.target.value);
 	};
 
-	const handleExpensesType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const value = e.target.value;
-		setExpensesType(+value);
-		localStorage.setItem("expensesType", value);
+	const handleExpensesType = (option: Option) => {
+		setSelectedExpensesType(option);
+		localStorage.setItem("expensesType", JSON.stringify(option));
 	};
 
 	const handleCurrencySum = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setCurrencySum(+e.target.value);
 	};
 
-	const handleCurrency = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const value = e.target.value;
+	const handleCurrency = (option: Option) => {
+		const value = `${option.value}`;
 
 		setCurrency(value);
 		localStorage.setItem("currency", value);
 
-		if (e.target.value === "rub") {
+		if (option.value === "rub") {
 			setRate(1);
 			localStorage.setItem("rate", "1");
 		}
@@ -99,9 +79,8 @@ const CreateNewExpenseWindow = ({
 		localStorage.setItem("rate", value);
 	};
 
-	const handleCountry = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const value = e.target.value;
-
+	const handleCountry = (option: Option) => {
+		const value = `${option.value}`;
 		setCountry(value);
 		localStorage.setItem("country", value);
 	};
@@ -121,124 +100,114 @@ const CreateNewExpenseWindow = ({
 			) + 1
 		).toString();
 
-		const expense = {
-			id,
-			date,
-			description,
-			expenses_type: expensesType,
-			currency_sum: currencySum,
-			currency,
-			rate,
-			country,
-			region,
-		};
+		if (!description) {
+			alert("Введите описание");
+		} else if (!region) {
+			alert("Введите регион");
+		} else if (!currencySum) {
+			alert("Введите сумму");
+		} else if (currencySum < 1) {
+			alert("Сумма должна быть больше 1");
+		} else if ((!rate || rate <= 1) && currency !== "rub") {
+			alert("Введите курс валюты");
+		} else {
+			const expense = {
+				id,
+				date,
+				description,
+				expenses_type: +SelectedExpensesType.value,
+				currency_sum: currencySum,
+				currency,
+				rate: rate || 1,
+				country,
+				region,
+			};
 
-		expensesApi
-			.createExpense(expense)
-			.then(() => {
-				getExpenses();
-				setIsOpenCreateNewExpense(false);
-			})
-			.catch((error) => console.log(error));
+			expensesApi
+				.createExpense(expense)
+				.then(() => {
+					getExpenses();
+					setIsOpenCreateNewExpense(false);
+				})
+				.catch((error) => console.log(error));
+		}
 	};
 
 	return (
 		<div className={styles.overlay}>
 			<div className={styles.modal} ref={blockRef}>
-				<div className={styles.inputBlock}>
-					<label htmlFor="date">Дата</label>
-					<input
-						type="date"
-						name="date"
-						value={dateValue}
-						onChange={handleDate}
+				<div style={{ textAlign: "right" }}>
+					<SlClose
+						onClick={() => setIsOpenCreateNewExpense(false)}
+						size={20}
+						style={{ cursor: "pointer" }}
 					/>
 				</div>
 
-				<div className={styles.inputBlock}>
-					<label htmlFor="expensesType">Категория</label>
-					<select
-						name="expensesType"
-						value={expensesType}
+				<div className={styles.multiBlock}>
+					<DayPicker
+						label="Дата"
+						selectedDate={date}
+						setSelectedDate={setDate}
+						showCalendarIcon
+						showNavigationButtons={false}
+					/>
+
+					<Dropdown
+						options={expensesTypes}
+						selected={SelectedExpensesType.label}
 						onChange={handleExpensesType}
-					>
-						{expensesTypes.map((type, i) => (
-							<option value={i} key={i}>
-								{type}
-							</option>
-						))}
-					</select>
+						dropdownTitle="Категория"
+						maxHeightContent={300}
+					/>
 				</div>
 
-				<div className={styles.inputBlock}>
-					<label htmlFor="description">Описание</label>
-					<input
+				<Input
+					type="text"
+					placeholder="Описание"
+					value={description || ""}
+					onChange={handleDescription}
+				/>
+
+				<div className={styles.multiBlock}>
+					<Dropdown
+						options={countriesOptions}
+						selected={getValueByKey(countries, country)}
+						onChange={handleCountry}
+						dropdownTitle="Страна"
+					/>
+					<Input
 						type="text"
-						name="description"
-						value={description}
-						onChange={handleDescription}
+						placeholder="Регион"
+						value={region || ""}
+						onChange={handleRegion}
 					/>
 				</div>
 
 				<div className={styles.multiBlock}>
-					<label htmlFor="region">Регион</label>
-
-					<div className={styles.multiInputBlock}>
-						<select name="country" onChange={handleCountry} value={country}>
-							{Object.entries(countries).map(([key, value]) => (
-								<option value={key} key={key}>
-									{value}
-								</option>
-							))}
-						</select>
-						<input
+					<Dropdown
+						options={currenciesOptions}
+						selected={getValueByKey(currencies, currency)}
+						onChange={handleCurrency}
+						dropdownTitle="Валюта"
+					/>
+					<Input
+						type="text"
+						placeholder="Сумма"
+						value={currencySum || ""}
+						onChange={handleCurrencySum}
+					/>
+					{currency !== "rub" && (
+						<Input
 							type="text"
-							name="region"
-							value={region}
-							onChange={handleRegion}
+							placeholder="Курс"
+							value={rate || ""}
+							onChange={handleRate}
 						/>
-					</div>
+					)}
 				</div>
 
-				<div className={styles.multiBlock}>
-					<label htmlFor="currencySum">Сумма</label>
-
-					<div className={styles.multiInputBlock}>
-						<select name="currency" value={currency} onChange={handleCurrency}>
-							{Object.entries(currencies).map(([key, value]) => (
-								<option value={key} key={key}>
-									{value}
-								</option>
-							))}
-						</select>
-
-						<input
-							type="text"
-							name="currencySum"
-							value={currencySum}
-							onChange={handleCurrencySum}
-						/>
-					</div>
-				</div>
-
-				{currency !== "rub" && (
-					<div className={styles.sumBlock}>
-						<div></div>
-						<div className={styles.inputBlock}>
-							<label htmlFor="rate">Курс</label>
-							<input
-								type="text"
-								name="rate"
-								value={rate}
-								onChange={handleRate}
-							/>
-						</div>
-					</div>
-				)}
-
-				<button className={styles.button} type="button" onClick={addExpense}>
-					Сохранить
-				</button>
+				<Button label="Сохранить" onClick={addExpense} />
 			</div>
 		</div>
 	);

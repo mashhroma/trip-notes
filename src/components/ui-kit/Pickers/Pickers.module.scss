@@ -1,0 +1,130 @@
+@use "../../../styles/vars" as *;
+@use "../../../styles/fonts" as *;
+
+.block {
+	padding: 2px 8px 2px 16px;
+	border-radius: 8px;
+	border: 1px solid $border;
+	height: 44px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #fff;
+	flex-basis: calc(50% - 4px);
+	position: relative;
+
+	&:focus-within {
+		outline: none;
+		border: 1px solid $primary;
+		box-shadow: inset 0 0 0 1px $primary;
+	}
+}
+
+.blockSmall {
+	@extend .block;
+	padding: 2px 4px 2px 8px;
+	height: 32px;
+}
+
+.label {
+	@include body-XS;
+	color: $letter-color-2;
+	cursor: pointer;
+}
+
+.labelSmall {
+	@extend .label;
+	@include body-S;
+	margin-left: 8px;
+	position: absolute;
+	top: 5px;
+}
+
+.inputBlock {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	cursor: pointer;
+}
+
+.inputDate {
+	@include body-S;
+	width: 100%;
+	height: 100%;
+	border: none;
+	color: $letter-color;
+	background: none;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.inputDateSmall {
+	@extend .inputDate;
+	@include body-XS;
+	opacity: 1;
+	position: absolute;
+	font-size: 13px;
+	top: -19.5px;
+	left: -7px;
+	width: 100px;
+	height: 28px;
+	padding-left: 16px;
+	border-radius: 3px;
+}
+
+.hideInputDateSmall {
+	@extend .inputDateSmall;
+	opacity: 0;
+	border: 1px solid red;
+	width: 125px;
+}
+
+.buttonsBlock {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	width: 24px !important;
+	border-radius: 8px;
+	border: 0;
+	background-color: #fff;
+	color: $letter-color;
+	cursor: pointer;
+
+	&:hover {
+		color: $hover-bcg-color;
+	}
+
+	&:disabled {
+		opacity: 45%;
+		cursor: auto;
+
+		&:hover {
+			background-color: transparent;
+		}
+	}
+}
+
+.clearIcon,
+.calendarIcon {
+	width: 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: $letter-color-2;
+	cursor: pointer;
+
+	&:hover {
+		color: $letter-color;
+	}
+}

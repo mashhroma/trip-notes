@@ -1,0 +1,60 @@
+$bcg-color: #170b23; // base-01
+$hover-bcg-color: #ac77e01b; // base-02
+
+$overlay-bcg-color: #0000001f;
+
+$border: #53297d;
+
+$primary: #53297d;
+$primary-hover: #8844cc;
+$primary-active: #31184b;
+$primary-bg: #3352f41a;
+
+$primary-onDark: #53297d7a;
+$primary-onDark-hover: #7e3fbd70;
+
+$secondary: #2adb16;
+$secondary-hover: #76db6b;
+$secondary-active: #116008;
+
+$letter-color: #191c30e5;
+$letter-color-2: #1b1f3ba6;
+$letter-color-3: #1b1f3b66;
+
+$success: #07a300;
+$success-pressed: #077302;
+$error: #d93c39;
+$error-pressed: #b63533;
+
+$border-base-style: 1px solid $border;
+$box-shadow: inset 0 0 0 1px $border;
+$shadow-base-style: 0px 1px 24px 0px #0000001f;
+
+@mixin scrollbar {
+	&::-webkit-scrollbar {
+		width: 14px;
+		height: 6px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: transparent;
+		border-radius: 8px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: transparent;
+		border-radius: 8px;
+		border: 4px solid transparent;
+		box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.24);
+
+		&:hover,
+		&:active {
+			box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.48);
+		}
+	}
+
+	@-moz-document url-prefix() {
+		scrollbar-width: auto;
+		scrollbar-color: rgba(0, 0, 0, 0.48) transparent;
+	}
+}

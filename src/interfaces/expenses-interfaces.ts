@@ -1,6 +1,6 @@
 export interface IExpense {
 	id: string;
-	date: string;
+	date: Date;
 	description: string;
 	expenses_type: number;
 	currency_sum: number;
@@ -12,7 +12,7 @@ export interface IExpense {
 
 export interface IUpdatedExpense {
 	id: string;
-	date?: string;
+	date?: Date;
 	description?: string;
 	expenses_type?: number;
 	currency_sum?: number;

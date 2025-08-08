@@ -1,0 +1,118 @@
+@use "../../../styles/vars" as *;
+@use "../../../styles/fonts" as *;
+
+.dropdown.dropdownBtn {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 5px;
+	width: 100%;
+	background: #fff;
+	border-radius: 8px;
+	border: $border-base-style;
+	user-select: none;
+	color: $letter-color;
+	cursor: pointer;
+
+	.titleBlock {
+		flex: 1;
+	}
+
+	.type {
+		@include body-XS;
+		color: $letter-color-2;
+	}
+
+	.chevron {
+		color: $letter-color-2;
+	}
+}
+
+.dropdown.dropdownActive {
+	@extend .dropdownBtn;
+	box-shadow: $box-shadow;
+	border: $border-base-style;
+}
+
+.dropdown.dropdownContent {
+	@include scrollbar;
+
+	& {
+		position: absolute;
+		z-index: 9999;
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		padding: 4px;
+		background: #fff;
+		border-radius: 4px;
+		border: 1px solid #e0e0e0;
+		box-shadow: 0px 3px 6px 0px #0000001a;
+		width: 100%;
+		overflow-y: auto;
+	}
+
+	.dropdownItem {
+		display: flex;
+		align-items: center;
+		border-radius: 4px;
+		transition: all 0.2s;
+		cursor: pointer;
+
+		&:hover {
+			background: $hover-bcg-color;
+		}
+	}
+
+	.disable {
+		color: gray;
+		cursor: default !important;
+		&:hover {
+			background-color: #fff !important;
+		}
+	}
+}
+
+.smallest {
+	@include body-XS;
+	padding: 6px;
+	height: 24px;
+}
+.smallestItem {
+	@include body-XS;
+	padding: 2px;
+	height: 24px;
+}
+
+.small {
+	@include body-S;
+	padding: 6px 10px;
+	height: 32px;
+}
+.smallItem {
+	@include body-S;
+	padding: 6px;
+	height: 32px;
+}
+
+.medium {
+	@include body-S;
+	padding: 4px 16px;
+	height: 44px;
+}
+.mediumItem {
+	@include body-S;
+	padding: 4px 12px;
+	height: 44px;
+}
+
+.large {
+	@include body-M;
+	padding: 4px 16px;
+	height: 56px;
+}
+.largeItem {
+	@include body-M;
+	padding: 4px 12px;
+	height: 56px;
+}

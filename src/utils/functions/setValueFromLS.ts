@@ -2,11 +2,12 @@
 export const setValueFromLS = (key: string, setValue: (value: any) => void) => {
 	const valueFromLS = localStorage.getItem(key);
 	if (valueFromLS) {
-		const value = valueFromLS.toString();
-		if (Number.isInteger(value)) {
-			setValue(+value);
-		} else {
+		try {
+			const value = JSON.parse(valueFromLS);
 			setValue(value);
+		} catch (error) {
+			console.log(error);
+			setValue(valueFromLS.toString());
 		}
 	}
 };

@@ -1,0 +1,240 @@
+@use "../../../styles/vars" as *;
+@use "../../../styles/fonts" as *;
+
+.dropdown.dropdownBtn {
+	position: relative;
+	width: 100%;
+
+	input {
+		width: 100%;
+		height: 100%;
+		background: $bcg-color;
+		box-sizing: border-box;
+		border-radius: 4px;
+		border: 1px solid $border;
+		color: $letter-color;
+
+		&::placeholder {
+			color: $letter-color-2;
+		}
+
+		&:focus {
+			outline: none;
+			border: 1px solid $primary;
+			box-shadow: inset 0 0 0 1px $primary;
+		}
+	}
+
+	label {
+		display: block;
+		color: $letter-color-2;
+		transition: 0.5s;
+		cursor: text;
+	}
+
+	.icon {
+		position: absolute;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		top: 0;
+		color: $letter-color-2;
+		padding: 4px;
+		cursor: pointer;
+
+		&:hover {
+			color: $letter-color;
+		}
+	}
+}
+
+.dropdown.dropdownContent {
+	@include scrollbar;
+	position: absolute;
+	z-index: 9999;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 4px;
+	background: $bcg-color;
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+	box-shadow: 0px 3px 6px 0px #0000001a;
+	width: 100%;
+	overflow-y: auto;
+
+	.dropdownItem {
+		display: flex;
+		align-items: center;
+		border-radius: 4px;
+		transition: all 0.2s;
+		cursor: pointer;
+
+		&:hover {
+			background: $hover-bcg-color;
+		}
+	}
+
+	.disable {
+		color: gray;
+		cursor: default !important;
+		&:hover {
+			background-color: $bcg-color !important;
+		}
+	}
+}
+
+.smallest {
+	height: 24px;
+
+	input {
+		@include body-S;
+		padding: 6px;
+	}
+
+	& input:focus,
+	& input:not([value=""]) {
+		padding: 6px 20px 6px 6px;
+	}
+
+	& input:focus,
+	& input:not([value=""]) {
+		padding: 6px 20px 6px 6px;
+	}
+
+	& input:focus::placeholder {
+		font-family: "Regular";
+		color: $letter-color-3;
+	}
+
+	.icon {
+		right: 4px;
+	}
+}
+.smallestItem {
+	@include body-XS;
+	padding: 2px;
+	height: 24px;
+}
+
+.small {
+	height: 32px;
+
+	input {
+		@include body-S;
+		padding: 6px 10px;
+	}
+
+	& input:focus,
+	& input:not([value=""]) {
+		padding: 6px 24px 6px 10px;
+	}
+
+	& input:focus::placeholder {
+		font-family: "Regular";
+		color: $letter-color-3;
+	}
+
+	.icon {
+		right: 4px;
+	}
+}
+.smallItem {
+	@include body-S;
+	padding: 6px;
+	height: 32px;
+}
+
+.medium {
+	height: 44px;
+
+	input {
+		@include body-S;
+		padding: 12px 16px;
+	}
+
+	label {
+		@include body-S;
+		padding-left: 16px;
+		transform: translateY(-32px);
+	}
+
+	& input:focus,
+	& input:not([value=""]) {
+		padding: 16px 32px 4px 16px;
+	}
+
+	& input:focus + label,
+	& input:not([value=""]) + label {
+		@include body-XS;
+		transform: translateY(-42px);
+	}
+
+	.icon {
+		right: 12px;
+	}
+}
+.mediumItem {
+	@include body-S;
+	padding: 4px 12px;
+	height: 44px;
+}
+
+.large {
+	height: 56px;
+
+	input {
+		@include body-M;
+		padding: 16px;
+	}
+
+	label {
+		@include body-M;
+		padding-left: 16px;
+		transform: translateY(-40px);
+	}
+
+	& input:focus,
+	& input:not([value=""]) {
+		padding: 16px 32px 4px 16px;
+	}
+
+	& input:focus + label,
+	& input:not([value=""]) + label {
+		@include body-XS;
+		transform: translateY(-50px);
+	}
+
+	.icon {
+		right: 12px;
+	}
+}
+.largeItem {
+	@include body-M;
+	padding: 4px 12px;
+	height: 56px;
+}
+
+.noData {
+	@include body-S;
+	width: 100%;
+	text-align: center;
+}
+
+.addBlock {
+	@include body-S($fontMedium);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border-radius: 4px;
+	color: $primary;
+	padding: 4px;
+	transition: 0.2s;
+	cursor: pointer;
+
+	&:hover {
+		background: $hover-bcg-color;
+		color: $primary-active;
+	}
+}

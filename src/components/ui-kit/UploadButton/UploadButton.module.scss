@@ -1,0 +1,103 @@
+@use "../../../styles/vars" as *;
+@use "../../../styles/fonts" as *;
+
+.uploadInput {
+	display: none;
+}
+
+.uploadLabel {
+	@include body-M;
+	width: 100%;
+	height: 44px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 8px;
+	align-items: center;
+	border: 1px dashed $primary;
+	border-radius: 4px;
+	text-align: center;
+	color: $letter-color;
+	transition: 0.3s;
+	cursor: pointer;
+
+	span {
+		transition: 0.3s;
+		color: $primary;
+	}
+}
+
+.fileTypes {
+	@include body-XS;
+	color: $letter-color-2;
+}
+
+.fileSize {
+	color: $letter-color-2;
+	margin-left: 4px;
+}
+
+.infoBlock {
+	@include body-M;
+	margin-top: 4px;
+	padding: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	height: 60px;
+	background-color: #fff;
+	border-radius: 4px;
+	border: 1px solid #dddfe0;
+}
+
+.warningBlock {
+	width: 44px;
+	height: 44px;
+	border-radius: 8px;
+	background-color: #f6f6f6;
+	color: rgba(27, 31, 59, 0.4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.error {
+	@extend .warningBlock;
+	font-size: 20px;
+	color: $error;
+	background-color: #d93c391f;
+}
+
+.done {
+	@extend .warningBlock;
+	font-size: 20px;
+	color: #07a300;
+	background-color: #07a3001f;
+}
+
+.fileNameBlock {
+	flex: 1;
+}
+
+.errorMessage {
+	@include body-S;
+	color: $error;
+}
+
+.remove {
+	margin-top: 5px;
+	padding: 5px;
+	color: $letter-color-2;
+	justify-self: flex-end;
+	cursor: pointer;
+
+	&:hover {
+		color: $letter-color;
+	}
+}
+
+.buttonLabel {
+	@include body-S;
+	padding: 10px 12px;
+}

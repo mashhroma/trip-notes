@@ -11,8 +11,8 @@
 }
 
 .modal {
-	width: 95%;
-	max-height: 95%;
+	width: 90%;
+	max-height: 90%;
 	background-color: #fff;
 	border-radius: 8px;
 	padding: 10px;
@@ -22,74 +22,8 @@
 	gap: 10px;
 }
 
-.inputBlock {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	font-size: 16px;
-
-	label {
-		display: block;
-		width: 85px;
-	}
-
-	input,
-	select {
-		flex: 1;
-		height: 36px;
-		border-radius: 8px;
-		border: solid 1px #53297d;
-		outline: none;
-		padding: 0px 4px;
-		color: #53297d;
-		transition: 0.3s;
-
-		&:hover {
-			background-color: #f0e6fb;
-		}
-	}
-}
-
 .multiBlock {
 	display: flex;
-	align-items: center;
-
-	label {
-		display: block;
-		width: 85px;
-	}
-}
-
-.multiInputBlock {
-	@extend .inputBlock;
-	gap: 6px;
-
-	select {
-		flex: unset;
-		width: 65px;
-	}
-}
-
-.button {
-	height: 36px;
-	font-weight: 500;
-	padding: 16px;
-	background-color: #53297d;
-	color: #fff;
-	transition: 0.3s;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 8px;
-	border: none;
-	font-size: 20px;
-
-	&:hover {
-		background: #8141c2;
-	}
-
-	&:active {
-		background: #351a51;
-	}
+	justify-content: space-between;
+	gap: 10px;
 }

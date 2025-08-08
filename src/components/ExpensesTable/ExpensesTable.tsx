@@ -9,12 +9,13 @@ import { getPrettyNumberStringFormat } from "@/utils/functions/getPrettyNumberSt
 import CreateNewExpenseWindow from "../CreateNewExpenseWindow";
 import { CgRemove } from "react-icons/cg";
 import expensesApi from "@/services/expenses";
-import axios from "axios";
-import { BASE_API_URL } from "@/utils/consts/API";
+import { Option } from "@/interfaces/option-interfaces";
+import { getRusFormattedDate } from "@/utils/functions/getRusFormattedDate";
+import Button from "../ui-kit/Button";
 
 const ExpensesTable = () => {
 	const [expenses, setExpenses] = useState<IExpense[]>([]);
-	const [expensesTypes, setExpensesTypes] = useState<string[]>([]);
+	const [expensesTypes, setExpensesTypes] = useState<Option[]>([]);
 	const [isOpenCreateNewExpense, setIsOpenCreateNewExpense] =
 		useState<boolean>(false);
 
@@ -38,7 +39,13 @@ const ExpensesTable = () => {
 	}, []);
 
 	const getInfo = (expense: IExpense, value: string) => {
-		if (value === "rubble_sum") {
+		if (value === "date") {
+			return (
+				<div className={styles.cell}>
+					{getRusFormattedDate(new Date(expense.date))}
+				</div>
+			);
+		} else if (value === "rubble_sum") {
 			return (
 				<div className={styles.numberCell} title={getSumInfo(expense)}>
 					{getPrettyNumberStringFormat(expense.currency_sum * expense.rate)}
@@ -47,11 +54,10 @@ const ExpensesTable = () => {
 		} else if (value == "description") {
 			return <div className={styles.textCell}>{expense.description}</div>;
 		} else if (value == "expenses_type") {
-			return (
-				<div className={styles.textCell}>
-					{expensesTypes[expense.expenses_type]}
-				</div>
+			const expensesType = expensesTypes.find(
+				(expensesType) => expensesType.value === expense.expenses_type
 			);
+			return <div className={styles.textCell}>{expensesType?.label}</div>;
 		} else if (value == "country") {
 			return (
 				<div className={styles.cell}>
@@ -72,7 +78,9 @@ const ExpensesTable = () => {
 			);
 		} else
 			return (
-				<div className={styles.cell}>{expense[value as keyof IExpense]}</div>
+				<div className={styles.cell}>
+					{expense[value as keyof IExpense].toString()}
+				</div>
 			);
 	};
 
@@ -103,12 +111,12 @@ const ExpensesTable = () => {
 			</h1>
 
 			<div className={styles.addButtonBlock}>
-				<button
-					className={styles.addButton}
+				<Button
+					label="Новый расход +"
 					onClick={openCreateNewExpenseWindow}
-				>
-					Новый расход +
-				</button>
+					size="large"
+					classBtn="secondary"
+				/>
 			</div>
 
 			<ul className={styles.table}>

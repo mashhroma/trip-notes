@@ -1,0 +1,117 @@
+@use "../../../styles/vars" as *;
+@use "../../../styles/fonts" as *;
+
+$back-color: #3352f41f;
+
+@media not all and (min-resolution: 0.001dpcm) {
+	/* Переопределяем стили только для Safari */
+	@supports (-webkit-appearance: none) {
+		.defaultBtn {
+			letter-spacing: -1px;
+		}
+	}
+}
+
+//primary
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 8px;
+	border: none;
+	background-color: $primary;
+	color: #fff;
+	transition: 0.3s;
+	min-width: 80px;
+	cursor: pointer;
+
+	&:hover {
+		background-color: $primary-hover;
+	}
+
+	&:active {
+		background-color: $primary-active;
+	}
+}
+
+.secondary {
+	@extend .button;
+	background-color: $secondary;
+
+	&:hover {
+		background-color: $secondary-hover;
+	}
+
+	&:active {
+		background-color: $secondary-active;
+	}
+}
+
+.disabled {
+	opacity: 55%;
+	pointer-events: none;
+}
+
+.loading {
+	pointer-events: none;
+}
+
+.small {
+	@include body-S(700);
+	height: 36px;
+	padding: 8px 12px;
+}
+
+.medium {
+	@include body-M(700);
+	height: 44px;
+	padding: 12px;
+}
+
+.large {
+	@include body-M(700);
+	height: 56px;
+	padding: 16px;
+}
+
+.btnComplex {
+	@extend .button;
+	@include body-S(700);
+}
+
+.buttonCancel {
+	@extend .button;
+	padding: 8px 16px;
+	border-radius: 8px;
+	color: rgba(217, 60, 57, 1);
+	background-color: rgba(217, 60, 57, 0.12);
+	&:hover {
+		background: rgba(217, 60, 57, 1);
+		color: white;
+	}
+}
+
+.btnCancelComplex {
+	@extend .buttonCancel;
+	@include body-S(700);
+}
+
+.reportBtn {
+	@extend .button;
+	gap: 8px;
+	height: 36px;
+}
+
+.keyIndicator {
+	@extend .button;
+	height: 28px;
+}
+
+.addPointButton {
+	@extend .secondary;
+	min-width: auto;
+}
+
+.loaderLabel {
+	margin-left: 4px;
+}
