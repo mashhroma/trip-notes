@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-	withCredentials: true,
+	withCredentials: false,
 });
 
 instance.interceptors.response.use(

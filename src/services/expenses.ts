@@ -4,7 +4,7 @@ import { BASE_API_URL } from "@/utils/consts/API";
 
 const expensesApi = {
 	getAllExpenses() {
-		return instance.get(`${BASE_API_URL}`);
+		return instance.get(BASE_API_URL);
 	},
 	getExpense(id: string) {
 		return instance.get(`${BASE_API_URL}${id}`);

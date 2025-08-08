@@ -9,6 +9,8 @@ import { getPrettyNumberStringFormat } from "@/utils/functions/getPrettyNumberSt
 import CreateNewExpenseWindow from "../CreateNewExpenseWindow";
 import { CgRemove } from "react-icons/cg";
 import expensesApi from "@/services/expenses";
+import axios from "axios";
+import { BASE_API_URL } from "@/utils/consts/API";
 
 const ExpensesTable = () => {
 	const [expenses, setExpenses] = useState<IExpense[]>([]);
