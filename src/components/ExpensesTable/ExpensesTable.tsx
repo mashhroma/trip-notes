@@ -2,16 +2,12 @@ import { IExpense } from "@/interfaces/expenses-interfaces";
 import { headers } from "@/utils/consts/headers-expenses";
 import React, { useEffect, useState } from "react";
 import styles from "./ExpensesTable.module.scss";
-import { currencies } from "@/utils/consts/currencies";
-import { getValueByKey } from "@/utils/functions/getValueByKey";
-import { countries } from "@/utils/consts/countries";
 import { getPrettyNumberStringFormat } from "@/utils/functions/getPrettyNumberStringFormat";
 import CreateNewExpenseWindow from "../CreateNewExpenseWindow";
-import { CgRemove } from "react-icons/cg";
 import expensesApi from "@/services/expenses";
 import { Option } from "@/interfaces/option-interfaces";
-import { getRusFormattedDate } from "@/utils/functions/getRusFormattedDate";
 import Button from "../ui-kit/Button";
+import Expense from "../Expense/Expense";
 
 const ExpensesTable = () => {
 	const [expenses, setExpenses] = useState<IExpense[]>([]);
@@ -38,70 +34,8 @@ const ExpensesTable = () => {
 		getExpensesTypes();
 	}, []);
 
-	const getInfo = (expense: IExpense, value: string) => {
-		if (value === "date") {
-			return (
-				<div className={styles.cell}>
-					{getRusFormattedDate(new Date(expense.date))}
-				</div>
-			);
-		} else if (value === "rubble_sum") {
-			return (
-				<div className={styles.numberCell} title={getSumInfo(expense)}>
-					{getPrettyNumberStringFormat(expense.currency_sum * expense.rate)}
-				</div>
-			);
-		} else if (value == "description") {
-			return <div className={styles.textCell}>{expense.description}</div>;
-		} else if (value == "expenses_type") {
-			const expensesType = expensesTypes.find(
-				(expensesType) => expensesType.value === expense.expenses_type
-			);
-			return <div className={styles.textCell}>{expensesType?.label}</div>;
-		} else if (value == "country") {
-			return (
-				<div className={styles.cell}>
-					{getValueByKey(countries, expense.country)}
-				</div>
-			);
-		} else if (value == "region") {
-			return <div className={styles.textCell}>{expense.region}</div>;
-		} else if (value == "delete") {
-			return (
-				<div
-					className={styles.textCellDelete}
-					onClick={() => deleteExpense(expense)}
-					title="Удалить"
-				>
-					<CgRemove />
-				</div>
-			);
-		} else
-			return (
-				<div className={styles.cell}>
-					{expense[value as keyof IExpense].toString()}
-				</div>
-			);
-	};
-
-	const getSumInfo = (expense: IExpense) => {
-		return expense.currency === "rub"
-			? "Оплачено в рублях"
-			: `Оплата в валюте: ${getValueByKey(
-					currencies,
-					expense.currency
-			  )} по курсу: ${expense.rate}`;
-	};
-
 	const openCreateNewExpenseWindow = () => {
 		setIsOpenCreateNewExpense(true);
-	};
-
-	const deleteExpense = (expense: IExpense) => {
-		expensesApi
-			.deleteExpense(expense.id)
-			.then(() => getExpenses())
-			.catch((error) => console.log(error));
 	};
 
 	return (
@@ -120,20 +54,20 @@ const ExpensesTable = () => {
 			</div>
 
 			<ul className={styles.table}>
-				<li className={styles.row}>
+				<li className={styles.header}>
 					{headers.map((header) => (
 						<div className={styles.cell} key={header.value}>
 							{header.title}
 						</div>
 					))}
 				</li>
-				{expenses.map((expense, i) => (
-					<li className={styles.row} key={expense.id}>
-						{headers.map((header) => (
-							<React.Fragment key={i + header.value}>
-								{getInfo(expense, header.value)}
-							</React.Fragment>
-						))}
+				{expenses.map((expense) => (
+					<li key={expense.id}>
+						<Expense
+							expense={expense}
+							expensesTypes={expensesTypes}
+							getExpenses={getExpenses}
+						/>
 					</li>
 				))}
 			</ul>

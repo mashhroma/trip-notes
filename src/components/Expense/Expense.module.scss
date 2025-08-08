@@ -1,0 +1,66 @@
+@use "../../styles/vars" as *;
+@use "../../styles/fonts" as *;
+
+.block {
+	background-color: rgba(213, 214, 248, 0.616);
+	border: solid 1px rgb(91, 91, 95);
+	border-radius: 8px;
+}
+
+.row {
+	display: grid;
+	grid-template-columns: 80px auto 80px 20px;
+	padding: 4px;
+	transition: 0.3s;
+	border-radius: 8px;
+	cursor: pointer;
+
+	&:hover {
+		background-color: rgb(213, 214, 248);
+	}
+}
+
+.cell {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 4px;
+}
+
+.cellDate {
+	@extend .cell;
+	font-variant-numeric: tabular-nums;
+}
+
+.numberCell {
+	@extend .cell;
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+.textCell {
+	@extend .cell;
+	text-align: center;
+}
+
+.textCellDelete {
+	@extend .cell;
+	text-align: center;
+	transition: 0.3s;
+	cursor: pointer;
+
+	&:hover {
+		color: #f70b3b;
+	}
+}
+
+.fullInfo {
+	padding: 0 20px 10px;
+
+	h2 {
+		@include heading-4;
+		padding: 0;
+		margin: 0;
+	}
+}

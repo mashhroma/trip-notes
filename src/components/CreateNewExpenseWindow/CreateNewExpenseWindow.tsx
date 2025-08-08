@@ -149,7 +149,6 @@ const CreateNewExpenseWindow = ({
 						label="Дата"
 						selectedDate={date}
 						setSelectedDate={setDate}
-						showCalendarIcon
 						showNavigationButtons={false}
 					/>
 

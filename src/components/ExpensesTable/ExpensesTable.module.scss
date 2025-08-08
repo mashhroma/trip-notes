@@ -20,20 +20,12 @@
 	border-radius: 8px;
 }
 
-.row {
+.header {
 	display: grid;
-	grid-template-columns: 70px auto 70px 60px 20px;
+	grid-template-columns: 80px auto 80px 20px;
 	padding: 4px;
-	transition: 0.3s;
 	border-radius: 8px;
-
-	&:not(:last-child) {
-		border-bottom: solid 1px rgb(91, 91, 95);
-	}
-
-	&:hover {
-		background-color: rgb(213, 214, 248);
-	}
+	border-bottom: solid 1px rgb(91, 91, 95);
 }
 
 .cell {
@@ -41,29 +33,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding: 0 4px;
-}
-
-.numberCell {
-	@extend .cell;
-	text-align: right;
-	font-style: italic;
-}
-
-.textCell {
-	@extend .cell;
-	text-align: left;
-}
-
-.textCellDelete {
-	@extend .cell;
-	text-align: center;
-	transition: 0.3s;
-	cursor: pointer;
-
-	&:hover {
-		color: #f70b3b;
-	}
+	padding: 4px;
 }
 
 .addButtonBlock {

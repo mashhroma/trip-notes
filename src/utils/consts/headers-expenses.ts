@@ -4,16 +4,12 @@ export const headers = [
 		title: "Дата",
 	},
 	{
-		value: "description",
+		value: "expenses_type",
 		title: "Категория",
 	},
 	{
 		value: "rubble_sum",
 		title: "Сумма в руб.",
-	},
-	{
-		value: "country",
-		title: "Страна",
 	},
 	{
 		value: "delete",
