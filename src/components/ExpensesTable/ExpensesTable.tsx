@@ -8,6 +8,7 @@ import { countries } from "@/utils/consts/countries";
 import { getPrettyNumberStringFormat } from "@/utils/functions/getPrettyNumberStringFormat";
 import CreateNewExpenseWindow from "../CreateNewExpenseWindow";
 import { CgRemove } from "react-icons/cg";
+import expensesApi from "@/services/expenses";
 
 const ExpensesTable = () => {
 	const [expenses, setExpenses] = useState<IExpense[]>([]);
@@ -21,20 +22,17 @@ const ExpensesTable = () => {
 	);
 
 	const getExpenses = () => {
-		fetch("/api/expenses")
-			.then((res) => res.json())
-			.then((data) => setExpenses(data));
+		expensesApi.getAllExpenses().then((res) => setExpenses(res.data));
 	};
-
-	useEffect(() => {
-		console.log("__dirname", __dirname);
-		console.log("process.cwd()", process.cwd());
-
-		getExpenses();
-
+	const getExpensesTypes = () => {
 		fetch("/api/expensesType")
 			.then((res) => res.json())
 			.then((data) => setExpensesTypes(data));
+	};
+
+	useEffect(() => {
+		getExpenses();
+		getExpensesTypes();
 	}, []);
 
 	const getInfo = (expense: IExpense, value: string) => {
@@ -90,17 +88,10 @@ const ExpensesTable = () => {
 	};
 
 	const deleteExpense = (expense: IExpense) => {
-		fetch("/api/expenses", {
-			method: "DELETE",
-			body: JSON.stringify(expense),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then(() => {
-				getExpenses();
-			})
-			.catch(() => alert("Попробуйте еще раз"));
+		expensesApi
+			.deleteExpense(expense.id)
+			.then(() => getExpenses())
+			.catch((error) => console.log(error));
 	};
 
 	return (
@@ -142,6 +133,7 @@ const ExpensesTable = () => {
 					setIsOpenCreateNewExpense={setIsOpenCreateNewExpense}
 					expensesTypes={expensesTypes}
 					getExpenses={getExpenses}
+					expenses={expenses}
 				/>
 			)}
 		</div>

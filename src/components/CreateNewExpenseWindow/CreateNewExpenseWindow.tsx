@@ -4,17 +4,21 @@ import { currencies } from "@/utils/consts/currencies";
 import { countries } from "@/utils/consts/countries";
 import { getNewDate, getStringDate } from "@/utils/functions/getStringDate";
 import { setValueFromLS } from "@/utils/functions/setValueFromLS";
+import expensesApi from "@/services/expenses";
+import { IExpense } from "@/interfaces/expenses-interfaces";
 
 interface CreateNewExpenseWindowProps {
 	setIsOpenCreateNewExpense: (openCreateNewExpense: boolean) => void;
 	expensesTypes: string[];
 	getExpenses: () => void;
+	expenses: IExpense[];
 }
 
 const CreateNewExpenseWindow = ({
 	setIsOpenCreateNewExpense,
 	expensesTypes,
 	getExpenses,
+	expenses,
 }: CreateNewExpenseWindowProps) => {
 	const today = getStringDate(new Date());
 	const [dateValue, setDateValue] = useState<string>(today);
@@ -110,7 +114,15 @@ const CreateNewExpenseWindow = ({
 	};
 
 	const addExpense = () => {
+		const id = (
+			expenses.reduce(
+				(maxId: number, expense) => Math.max(maxId, +expense.id),
+				0
+			) + 1
+		).toString();
+
 		const expense = {
+			id,
 			date,
 			description,
 			expenses_type: expensesType,
@@ -121,18 +133,13 @@ const CreateNewExpenseWindow = ({
 			region,
 		};
 
-		fetch("/api/expenses", {
-			method: "POST",
-			body: JSON.stringify(expense),
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
+		expensesApi
+			.createExpense(expense)
 			.then(() => {
 				getExpenses();
 				setIsOpenCreateNewExpense(false);
 			})
-			.catch(() => alert("Попробуйте еще раз"));
+			.catch((error) => console.log(error));
 	};
 
 	return (

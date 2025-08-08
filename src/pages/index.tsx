@@ -14,12 +14,14 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<div>
-				<header>{SITE_NAME}</header>
+			<div className="container">
+				<header>
+					<h1>{SITE_NAME}</h1>
+				</header>
 				<main>
 					<ExpensesTable />
 				</main>
-				<footer style={{ textAlign: "center" }}>
+				<footer>
 					<i>{SITE_NAME}</i>
 				</footer>
 			</div>
