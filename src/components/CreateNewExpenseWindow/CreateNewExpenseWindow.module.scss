@@ -15,11 +15,11 @@
 	max-height: 95%;
 	background-color: #fff;
 	border-radius: 8px;
-	padding: 30px;
+	padding: 10px;
 	color: #53297d;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 10px;
 }
 
 .inputBlock {
@@ -40,7 +40,7 @@
 		border-radius: 8px;
 		border: solid 1px #53297d;
 		outline: none;
-		padding: 0px 8px;
+		padding: 0px 4px;
 		color: #53297d;
 		transition: 0.3s;
 
@@ -65,11 +65,8 @@
 	gap: 6px;
 
 	select {
-		width: 80px;
-	}
-
-	input {
-		width: 115px;
+		flex: unset;
+		width: 65px;
 	}
 }
 
