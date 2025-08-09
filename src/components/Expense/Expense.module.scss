@@ -5,6 +5,7 @@
 	background-color: rgba(213, 214, 248, 0.616);
 	border: solid 1px rgb(91, 91, 95);
 	border-radius: 8px;
+	margin-top: 4px;
 }
 
 .row {
@@ -48,15 +49,30 @@
 	@extend .cell;
 	text-align: center;
 	transition: 0.3s;
+	color: #f70b3b;
 	cursor: pointer;
 
 	&:hover {
-		color: #f70b3b;
+		color: #fb5778;
+	}
+}
+
+.textCellEdit {
+	@extend .cell;
+	text-align: center;
+	transition: 0.3s;
+	color: $secondary;
+	cursor: pointer;
+
+	&:hover {
+		color: $secondary-hover;
 	}
 }
 
 .fullInfo {
 	padding: 0 20px 10px;
+	display: flex;
+	justify-content: space-between;
 
 	h2 {
 		@include heading-4;

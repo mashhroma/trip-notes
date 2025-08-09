@@ -9,7 +9,7 @@ export const headers = [
 	},
 	{
 		value: "rubble_sum",
-		title: "Сумма в руб.",
+		title: "Сумма, ₽",
 	},
 	{
 		value: "delete",

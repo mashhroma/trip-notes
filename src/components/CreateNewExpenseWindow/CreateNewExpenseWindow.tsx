@@ -136,14 +136,9 @@ const CreateNewExpenseWindow = ({
 	return (
 		<div className={styles.overlay}>
 			<div className={styles.modal} ref={blockRef}>
-				<div style={{ textAlign: "right" }}>
-					<SlClose
-						onClick={() => setIsOpenCreateNewExpense(false)}
-						size={20}
-						style={{ cursor: "pointer" }}
-					/>
+				<div className={styles.close}>
+					<SlClose onClick={() => setIsOpenCreateNewExpense(false)} size={25} />
 				</div>
-
 				<div className={styles.multiBlock}>
 					<DayPicker
 						label="Дата"

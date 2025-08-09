@@ -21,7 +21,13 @@ const ExpensesTable = () => {
 	);
 
 	const getExpenses = () => {
-		expensesApi.getAllExpenses().then((res) => setExpenses(res.data));
+		expensesApi.getAllExpenses().then((res) => {
+			const data: IExpense[] = res.data.sort(
+				(a: IExpense, b: IExpense) =>
+					new Date(b.date).getTime() - new Date(a.date).getTime()
+			);
+			setExpenses(data);
+		});
 	};
 	const getExpensesTypes = () => {
 		fetch("/api/expensesType")
@@ -41,12 +47,14 @@ const ExpensesTable = () => {
 	return (
 		<div>
 			<h1 className={styles.titleBlock}>
-				<div>Затраты</div> <div>{getPrettyNumberStringFormat(sum)}</div>
+				<div>
+					<div>Расходы</div> <div>{getPrettyNumberStringFormat(sum)}</div>
+				</div>
 			</h1>
 
 			<div className={styles.addButtonBlock}>
 				<Button
-					label="Новый расход +"
+					label="НОВЫЙ РАСХОД"
 					onClick={openCreateNewExpenseWindow}
 					size="large"
 					classBtn="secondary"

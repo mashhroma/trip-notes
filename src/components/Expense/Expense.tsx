@@ -10,6 +10,7 @@ import styles from "./Expense.module.scss";
 import { countries } from "@/utils/consts/countries";
 import { CgRemove } from "react-icons/cg";
 import { Option } from "@/interfaces/option-interfaces";
+import { CgEditMarkup } from "react-icons/cg";
 
 const Expense = ({
 	expense,
@@ -32,10 +33,13 @@ const Expense = ({
 	};
 
 	const deleteExpense = (expense: IExpense) => {
-		expensesApi
-			.deleteExpense(expense.id)
-			.then(() => getExpenses())
-			.catch((error) => console.log(error));
+		const isConfirm = confirm("Вы уверены, что хотите удалить эту строку?");
+		if (isConfirm) {
+			expensesApi
+				.deleteExpense(expense.id)
+				.then(() => getExpenses())
+				.catch((error) => console.log(error));
+		}
 	};
 
 	const getInfo = (expense: IExpense, value: string) => {
@@ -58,22 +62,7 @@ const Expense = ({
 				(expensesType) => +expensesType.value === +expense.expenses_type
 			);
 			return <div className={styles.textCell}>{expensesType?.label}</div>;
-		} else if (value == "delete") {
-			return (
-				<div
-					className={styles.textCellDelete}
-					onClick={() => deleteExpense(expense)}
-					title="Удалить"
-				>
-					<CgRemove />
-				</div>
-			);
-		} else
-			return (
-				<div className={styles.cell}>
-					{expense[value as keyof IExpense].toString()}
-				</div>
-			);
+		}
 	};
 
 	return (
@@ -87,14 +76,29 @@ const Expense = ({
 			</div>
 			{isOpen && (
 				<div className={styles.fullInfo}>
-					<h2>{expense.description}</h2>
-					<div>Страна: {getValueByKey(countries, expense.country)}</div>
-					<div>Регион: {expense.region}</div>
-					<div>Сумма: {expense.currency_sum}</div>
 					<div>
-						Оплачено в валюте: {getValueByKey(currencies, expense.currency)}
+						<h2>{expense.description}</h2>
+						<div>Страна: {getValueByKey(countries, expense.country)}</div>
+						<div>Регион: {expense.region}</div>
+						<div>Сумма: {expense.currency_sum}</div>
+						<div>
+							Оплачено в валюте: {getValueByKey(currencies, expense.currency)}
+						</div>
+						{expense.currency !== "rub" && <div>По курсу: {expense.rate}</div>}
 					</div>
-					{expense.currency !== "rub" && <div>По курсу: {expense.rate}</div>}
+
+					<div>
+						<div
+							className={styles.textCellDelete}
+							onClick={() => deleteExpense(expense)}
+							title="Удалить"
+						>
+							<CgRemove size={30} />
+						</div>
+						<div className={styles.textCellEdit}>
+							<CgEditMarkup size={27.5} />
+						</div>
+					</div>
 				</div>
 			)}
 		</div>
