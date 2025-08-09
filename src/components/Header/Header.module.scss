@@ -1,0 +1,57 @@
+@use "../../styles/vars" as *;
+@use "../../styles/fonts" as *;
+
+.overlay {
+	background-color: rgb(214, 43, 226);
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #fff;
+	padding: 20px;
+	background-color: blueviolet;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+
+	h1 {
+		@include heading-1;
+	}
+}
+
+.hamburger {
+	cursor: pointer;
+}
+
+.nav {
+	position: fixed;
+	top: 60px;
+	width: 100%;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	border-radius: 8px;
+	padding: 10px;
+	border: 1px solid $border;
+
+	a {
+		@include heading-4;
+		display: block;
+		border-radius: 8px;
+		padding: 10px;
+		color: $primary;
+		transition: 0.3s;
+
+		&:hover {
+			background-color: $hover-bcg-color;
+			color: $primary-hover;
+		}
+
+		&:active {
+			background-color: $hover-bcg-color;
+			color: $primary-active;
+		}
+	}
+}

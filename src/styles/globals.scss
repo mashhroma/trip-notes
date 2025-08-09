@@ -28,7 +28,7 @@ a {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	height: calc(100vh - 50px);
+	height: 100vh;
 }
 
 main {
@@ -36,21 +36,11 @@ main {
 	margin: 0px;
 }
 
-header {
-	background-color: rgb(214, 43, 226);
-
-	h1 {
-		@include heading-1;
-		color: #fff;
-		padding: 20px;
-		background-color: blueviolet;
-		border-bottom-left-radius: 15px;
-		border-bottom-right-radius: 15px;
-	}
-}
-
 footer {
 	@include heading-2;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
 	color: #fff;
 	padding: 10px;
 	background-color: blueviolet;

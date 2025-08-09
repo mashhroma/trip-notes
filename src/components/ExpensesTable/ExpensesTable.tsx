@@ -9,6 +9,7 @@ import { Option } from "@/interfaces/option-interfaces";
 import Button from "../ui-kit/Button";
 import Expense from "../Expense/Expense";
 import { getSumByType } from "@/utils/functions/getSumByType";
+import { FaPlus } from "react-icons/fa";
 
 const ExpensesTable = () => {
 	const [expenses, setExpenses] = useState<IExpense[]>([]);
@@ -82,6 +83,8 @@ const ExpensesTable = () => {
 					onClick={openCreateNewExpenseWindow}
 					size="large"
 					classBtn="secondary"
+					icon={<FaPlus className={styles.iconPlus} />}
+					width={200}
 				/>
 			</div>
 

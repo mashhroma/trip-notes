@@ -1,13 +1,13 @@
 import Head from "next/head";
-import ExpensesTable from "@/components/ExpensesTable";
 import { SITE_NAME } from "@/utils/consts/SITE_NAME";
+import Routes from "@/components/Routes";
 import Header from "@/components/Header";
 
-export default function Home() {
+export default function RoutesPage() {
 	return (
 		<>
 			<Head>
-				<title>{SITE_NAME} - Расходы</title>
+				<title>{SITE_NAME} - Маршруты</title>
 				<meta
 					name="description"
 					content="Мои заметки, чтобы контролировать расходы во время поездки"
@@ -18,7 +18,7 @@ export default function Home() {
 			<div className="container">
 				<Header />
 				<main>
-					<ExpensesTable />
+					<Routes />
 				</main>
 				<footer>
 					<i>{SITE_NAME}</i>

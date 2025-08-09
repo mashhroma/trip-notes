@@ -70,8 +70,8 @@ $back-color: #3352f41f;
 
 .large {
 	@include body-M(700);
-	height: 56px;
-	padding: 16px;
+	height: 50px;
+	padding: 0px 20px;
 }
 
 .btnComplex {

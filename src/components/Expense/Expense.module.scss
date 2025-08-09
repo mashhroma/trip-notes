@@ -12,8 +12,8 @@
 	display: grid;
 	grid-template-columns: 80px auto 80px 20px;
 	padding: 4px;
-	transition: 0.3s;
 	border-radius: 8px;
+	transition: 0.3s;
 	cursor: pointer;
 
 	&:hover {
