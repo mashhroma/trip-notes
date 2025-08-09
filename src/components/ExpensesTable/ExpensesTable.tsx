@@ -8,17 +8,28 @@ import expensesApi from "@/services/expenses";
 import { Option } from "@/interfaces/option-interfaces";
 import Button from "../ui-kit/Button";
 import Expense from "../Expense/Expense";
+import { getSumByType } from "@/utils/functions/getSumByType";
 
 const ExpensesTable = () => {
 	const [expenses, setExpenses] = useState<IExpense[]>([]);
 	const [expensesTypes, setExpensesTypes] = useState<Option[]>([]);
 	const [isOpenCreateNewExpense, setIsOpenCreateNewExpense] =
 		useState<boolean>(false);
+	const [isOpenExpensesTypes, setIsExpensesTypes] = useState<boolean>(false);
 
 	const sum = expenses.reduce(
 		(acc: number, expense) => acc + expense.currency_sum * expense.rate,
 		0
 	);
+
+	const expensesTypesWithSum = expensesTypes
+		.map((type) => {
+			return {
+				...type,
+				sum: getSumByType(expenses, +type.value),
+			};
+		})
+		.filter((type) => type.sum > 0);
 
 	const getExpenses = () => {
 		expensesApi.getAllExpenses().then((res) => {
@@ -46,11 +57,24 @@ const ExpensesTable = () => {
 
 	return (
 		<div>
-			<h1 className={styles.titleBlock}>
-				<div>
+			<header className={styles.titleBlock}>
+				<div
+					className={styles.title}
+					onClick={() => setIsExpensesTypes(!isOpenExpensesTypes)}
+				>
 					<div>Расходы</div> <div>{getPrettyNumberStringFormat(sum)}</div>
 				</div>
-			</h1>
+				{isOpenExpensesTypes && (
+					<div>
+						{expensesTypesWithSum.map((type) => (
+							<div className={styles.expenseType} key={type.value}>
+								<div>{type.label}</div>
+								<div>{getPrettyNumberStringFormat(type.sum)}</div>
+							</div>
+						))}
+					</div>
+				)}
+			</header>
 
 			<div className={styles.addButtonBlock}>
 				<Button

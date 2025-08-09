@@ -2,14 +2,29 @@
 @use "../../styles/fonts" as *;
 
 .titleBlock {
-	@include heading-3;
 	padding: 10px;
-	display: flex;
-	justify-content: space-between;
 	background-color: rgb(214, 43, 226);
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	color: #fff;
+}
+
+.title {
+	@include heading-3;
+	display: flex;
+	justify-content: space-between;
+	transition: 0.3s;
+	cursor: pointer;
+
+	&:hover {
+		transform: scale(1.01);
+	}
+}
+
+.expenseType {
+	@include body-L;
+	display: flex;
+	justify-content: space-between;
 }
 
 .table {
